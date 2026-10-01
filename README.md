@@ -17,12 +17,19 @@ Microsoft Store의 일반 **ChatGPT Windows 앱**이 GPT 로고 화면에서 계
 - ChatGPT Classic
 - 웹 브라우저의 ChatGPT
 
-## 실행 전 준비
+## 지원 환경
 
-- Windows 10 또는 Windows 11
+- 최신 업데이트가 설치된 Windows 10 또는 Windows 11
 - Microsoft Store에서 설치한 일반 ChatGPT 앱
 - Windows PowerShell 5.1 (`powershell.exe`)
 - 관리자 권한은 필요하지 않습니다.
+
+확인된 환경:
+
+- Windows 10 22H2 빌드 19045 / ChatGPT `26.928.3736.0`
+- Windows 11 / Microsoft Store ChatGPT 앱
+
+Windows 10에서는 Store 패키지의 `ChatGPT.exe`를 파일 경로로 직접 실행하면 `Access is denied`가 발생할 수 있습니다. 이 실행기는 Windows의 패키지 활성화 API를 사용하므로 `ChatGPT.exe`를 직접 실행하지 않습니다.
 
 > [!WARNING]
 > 실행기는 현재 실행 중인 **일반 ChatGPT 앱**을 먼저 종료합니다. 작성 중인 메시지가 있다면 실행 전에 복사해 두세요. Beta와 Classic은 종료하지 않습니다.
@@ -72,7 +79,7 @@ Unblock-File -LiteralPath ".\Start-ChatGPT-Fixed.ps1"
 실행기는 다음 작업만 수행합니다.
 
 1. 설치된 일반 ChatGPT Store 패키지를 자동으로 찾습니다.
-2. 일반 ChatGPT 프로세스만 종료하고 공식 `ChatGPT.exe`를 다시 실행합니다.
+2. 일반 ChatGPT 프로세스만 종료하고 등록된 Store 패키지 ID로 공식 `ChatGPT.exe`를 다시 활성화합니다.
 3. 앱의 Chromium 디버깅 인터페이스를 `127.0.0.1`의 임의 포트에 엽니다.
 4. 빈 기본 라우트 대신 유효한 초기 라우트로 렌더러를 준비합니다.
 5. 앱 자체의 내부 탐색 메시지를 사용해 ChatGPT 홈 화면으로 이동합니다.
@@ -93,6 +100,10 @@ ChatGPT 패키지 파일, 계정 정보, 대화 기록 또는 앱 프로필은 �
 ### `OpenAI.Codex` 패키지를 찾을 수 없다는 메시지
 
 Microsoft Store의 일반 ChatGPT 앱이 설치되어 있는지 확인하세요. Beta 또는 Classic만 설치된 경우 이 실행기는 작동하지 않습니다.
+
+### `Access is denied` 또는 `액세스가 거부되었습니다` 메시지
+
+초기 버전의 실행기는 설치 폴더에 있는 `ChatGPT.exe`를 직접 실행했기 때문에 일부 Windows 10 환경에서 이 오류가 발생했습니다. 최신 `Start-ChatGPT-Fixed.ps1`을 다시 다운로드해 실행하세요. 최신 버전은 등록된 Store 패키지 ID로 앱을 활성화합니다.
 
 ### 여전히 로고 화면에 멈춤
 

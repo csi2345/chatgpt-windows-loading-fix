@@ -1,8 +1,81 @@
-# Temporary launcher for the Microsoft Store ChatGPT app's blank-root-route bug.
+﻿# Temporary launcher for the Microsoft Store ChatGPT app's blank-root-route bug.
 # It starts the official OpenAI.Codex package and redirects only its main renderer
 # from the broken empty route to a valid initial route.
 
 $ErrorActionPreference = 'Stop'
+
+function Start-PackagedChatGPT {
+    param(
+        [Parameter(Mandatory)]
+        [string]$ApplicationUserModelId,
+
+        [Parameter(Mandatory)]
+        [string[]]$ArgumentList
+    )
+
+    if (-not ('OpenAIChatGPTPackageActivation' -as [type])) {
+        Add-Type -Language CSharp -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+
+[Flags]
+public enum OpenAIChatGPTActivateOptions
+{
+    None = 0x00000000
+}
+
+[ComImport]
+[Guid("45BA127D-10A8-46EA-8AB7-56EA9078943C")]
+internal class OpenAIChatGPTApplicationActivationManager
+{
+}
+
+[ComImport]
+[Guid("2E941141-7F97-4756-BA1D-9DECDE894A3D")]
+[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+internal interface IOpenAIChatGPTApplicationActivationManager
+{
+    [PreserveSig]
+    int ActivateApplication(
+        [MarshalAs(UnmanagedType.LPWStr)] string appUserModelId,
+        [MarshalAs(UnmanagedType.LPWStr)] string arguments,
+        OpenAIChatGPTActivateOptions options,
+        out uint processId);
+
+    void ActivateForFile(IntPtr appUserModelId, IntPtr itemArray, IntPtr verb, out uint processId);
+    void ActivateForProtocol(IntPtr appUserModelId, IntPtr itemArray, out uint processId);
+}
+
+public static class OpenAIChatGPTPackageActivation
+{
+    public static uint Activate(string appUserModelId, string arguments)
+    {
+        var manager = (IOpenAIChatGPTApplicationActivationManager)
+            new OpenAIChatGPTApplicationActivationManager();
+        uint processId;
+        int result = manager.ActivateApplication(
+            appUserModelId,
+            arguments,
+            OpenAIChatGPTActivateOptions.None,
+            out processId);
+
+        if (result < 0)
+        {
+            Marshal.ThrowExceptionForHR(result);
+        }
+
+        return processId;
+    }
+}
+'@
+    }
+
+    $arguments = $ArgumentList -join ' '
+    return [OpenAIChatGPTPackageActivation]::Activate(
+        $ApplicationUserModelId,
+        $arguments
+    )
+}
 
 function Show-LauncherError {
     param([string]$Message)
@@ -156,12 +229,13 @@ try {
         "--remote-debugging-port=$port"
     )
 
-    $processParameters = @{
-        FilePath = $chatGptExe
-        ArgumentList = $arguments
-        WindowStyle = 'Normal'
-    }
-    Start-Process @processParameters | Out-Null
+    # Windows 10 can reject a direct CreateProcess call for a Store-packaged
+    # executable with ERROR_ACCESS_DENIED. Activate the registered package
+    # identity instead while preserving the Chromium debugging arguments.
+    $appUserModelId = "$($package.PackageFamilyName)!App"
+    $null = Start-PackagedChatGPT `
+        -ApplicationUserModelId $appUserModelId `
+        -ArgumentList $arguments
 
     $deadline = [DateTime]::UtcNow.AddSeconds(25)
     $mainTarget = $null
