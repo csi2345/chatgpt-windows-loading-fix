@@ -2,6 +2,9 @@
 
 Microsoft Store의 일반 **ChatGPT Windows 앱**이 GPT 로고 화면에서 계속 멈추는 문제를 우회하는 비공식 PowerShell 실행기입니다.
 
+- [웹 안내 페이지](https://csi2345.github.io/chatgpt-windows-loading-fix/)
+- [실행 스크립트 바로 보기](./Start-ChatGPT-Fixed.ps1)
+
 > [!IMPORTANT]
 > 이 프로젝트는 OpenAI의 공식 도구가 아닙니다. 앱 파일이나 사용자 데이터를 수정하지 않는 임시 우회책이며, 향후 ChatGPT 업데이트로 내부 구조가 바뀌면 작동하지 않을 수 있습니다.
 

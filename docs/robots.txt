@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://csi2345.github.io/chatgpt-windows-loading-fix/sitemap.xml

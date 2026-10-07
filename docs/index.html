@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="r9BVWHGHzt9sNmZyzTsrkIBvTQ9xiwG0-q3jaX56I2Y" />
+    <title>ChatGPT Windows Loading Fix | GPT 로고 멈춤 해결</title>
+    <meta
+      name="description"
+      content="Microsoft Store ChatGPT Windows 앱이 GPT 로고 화면에서 멈추는 문제를 우회하는 오픈 소스 PowerShell 실행기입니다. Windows 10과 Windows 11을 지원합니다."
+    />
+    <link rel="canonical" href="https://csi2345.github.io/chatgpt-windows-loading-fix/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ChatGPT Windows Loading Fix" />
+    <meta
+      property="og:description"
+      content="Microsoft Store ChatGPT Windows 앱의 GPT 로고 로딩 멈춤 문제를 위한 비공식 임시 우회책"
+    />
+    <meta property="og:url" content="https://csi2345.github.io/chatgpt-windows-loading-fix/" />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "ChatGPT Windows Loading Fix",
+        "description": "An unofficial PowerShell launcher workaround for the Microsoft Store ChatGPT Windows app getting stuck on the GPT loading logo.",
+        "codeRepository": "https://github.com/csi2345/chatgpt-windows-loading-fix",
+        "programmingLanguage": "PowerShell",
+        "runtimePlatform": "Windows 10 and Windows 11"
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: Inter, Pretendard, "Noto Sans KR", system-ui, sans-serif;
+        line-height: 1.65;
+      }
+      body {
+        margin: 0;
+        background: #0d1117;
+        color: #e6edf3;
+      }
+      main {
+        width: min(760px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 72px 0;
+      }
+      h1 {
+        margin: 0 0 16px;
+        font-size: clamp(2rem, 6vw, 3.6rem);
+        line-height: 1.08;
+      }
+      h2 {
+        margin-top: 44px;
+      }
+      .lead {
+        max-width: 650px;
+        color: #b7c2ce;
+        font-size: 1.15rem;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 28px 0 40px;
+      }
+      a.button {
+        display: inline-block;
+        padding: 11px 17px;
+        border: 1px solid #3d444d;
+        border-radius: 9px;
+        color: #e6edf3;
+        text-decoration: none;
+        font-weight: 650;
+      }
+      a.primary {
+        border-color: #238636;
+        background: #238636;
+        color: white;
+      }
+      code {
+        padding: 0.15rem 0.4rem;
+        border-radius: 5px;
+        background: #161b22;
+      }
+      .notice {
+        margin-top: 48px;
+        padding: 18px 20px;
+        border-left: 4px solid #d29922;
+        background: #161b22;
+        color: #b7c2ce;
+      }
+      footer {
+        margin-top: 52px;
+        color: #8b949e;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>ChatGPT Windows Loading Fix</h1>
+      <p class="lead">
+        Microsoft Store의 일반 ChatGPT Windows 앱이 중앙의 GPT 로고 화면에서 더 이상 진행되지 않을 때 사용하는
+        비공식 PowerShell 실행기입니다.
+      </p>
+
+      <div class="actions">
+        <a class="button primary" href="https://github.com/csi2345/chatgpt-windows-loading-fix">GitHub 저장소 열기</a>
+        <a class="button" href="https://github.com/csi2345/chatgpt-windows-loading-fix/raw/refs/heads/main/Start-ChatGPT-Fixed.ps1">스크립트 다운로드</a>
+      </div>
+
+      <h2>지원 환경</h2>
+      <ul>
+        <li>Windows 10 또는 Windows 11</li>
+        <li>Microsoft Store에서 설치한 일반 ChatGPT 앱 (<code>OpenAI.Codex</code>)</li>
+        <li>Windows PowerShell 5.1</li>
+      </ul>
+
+      <h2>해결하는 증상</h2>
+      <p>
+        ChatGPT 앱을 실행한 뒤 GPT 로고만 표시되고 홈 화면이 로드되지 않는 특정 라우팅 문제를 우회합니다. 설치된
+        Store 패키지를 찾아 공식 앱을 다시 활성화하고, 유효한 초기 화면 경로를 준비합니다.
+      </p>
+
+      <h2>사용 방법과 소스 코드</h2>
+      <p>
+        전체 설치 방법, 보안 참고 사항, 문제 해결 절차와 공개된 PowerShell 소스 코드는
+        <a href="https://github.com/csi2345/chatgpt-windows-loading-fix">GitHub 저장소</a>에서 확인할 수 있습니다.
+      </p>
+
+      <aside class="notice">
+        이 프로젝트는 OpenAI의 공식 도구가 아니며 OpenAI와 제휴하거나 보증받지 않았습니다. 특정 Windows 앱 로딩
+        오류를 위한 임시 우회책입니다.
+      </aside>
+
+      <footer>Open source project hosted on GitHub.</footer>
+    </main>
+  </body>
+</html>
